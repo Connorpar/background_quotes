@@ -5,6 +5,12 @@ This repository has scripts to first scrape quotes from a list of authors off of
 1. `git clone https://github.com/Connorpar/background_quotes.git`
 2. Install Dependencies
 
+## Dependencies
+* pandas
+* Pillow
+* BeautifulSoup
+* requests
+
 ## Running
 1. Edit the Authors list in quote_scraper.py 
 2. Run `python quote_scraper.py`

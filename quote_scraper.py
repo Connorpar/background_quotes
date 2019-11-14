@@ -7,6 +7,7 @@ import requests
 import re
 import csv
 import pandas as pd
+import os , stat
 
 def scrape_author(author, max_len):
 	f_l = author.split()
@@ -36,10 +37,10 @@ def scrape_author(author, max_len):
 
 
 if __name__ == '__main__':
-	authors = ['Judea Pearl', 'Daniel Kahneman', 'Nicholas Taleb', 'Peter Thiel', 'Elon Musk']
+	authors = ['Judea Pearl', 'Daniel Kahneman', 'Nicholas Taleb', 'Peter Thiel', 'Ashlee Vance', 'Robert Kiyosaki', 'Kurt Vonnegut']
 	quotes = []
 	q_authors = []
-	SAVE_FILE = './author_quotes.csv'
+	SAVE_FILE = './author_quotes_2.csv'
 	
 	for author in authors:
 		a_quotes = scrape_author(author, 1000)
@@ -52,6 +53,13 @@ if __name__ == '__main__':
 		"Quotes" : quotes,
 		"Authors": q_authors
 		})
+
+	try:
+		os.chmod(SAVE_FILE, stat.S_IRWXO)
+		os.system('del ' + SAVE_FILE)
+
+	except:
+		print("Creating " + SAVE_FILE)
 
 	df.to_csv(SAVE_FILE)
 

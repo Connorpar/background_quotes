@@ -15,7 +15,7 @@ from PIL import ImageDraw
 # config
 IMAGE_WIDTH = 1920
 IMAGE_HEIGHT = 1280
-COLOR = (255, 255, 255)
+
 SPACING = 3
 
 def recommend_font_size(text, img_w, img_h):
@@ -64,6 +64,13 @@ def write_image(text, output_filename, background_img):
 	# background
 	back = Image.open(background_img, 'r')
 	back = back.resize((IMAGE_WIDTH, IMAGE_HEIGHT), Image.ANTIALIAS)
+	img2 = back.resize((1, 1), Image.ANTIALIAS)
+	b_color = img2.getpixel((0, 0))
+	if sum(b_color) > 500:
+		color = (0,0,0)
+	else:
+		color = (255,255,255)
+
 	img_w, img_h = back.size
 	bg_w, bg_h = img.size
 
@@ -85,7 +92,7 @@ def write_image(text, output_filename, background_img):
 	text_w, text_h = textsize
 	x -= text_w / 2
 	y -= text_h / 2
-	draw.multiline_text(align="center", xy=(x, y), text=text, fill=COLOR, font=font, spacing=SPACING)
+	draw.multiline_text(align="center", xy=(x, y), text=text, fill=color, font=font, spacing=SPACING)
 	draw = ImageDraw.Draw(img)
 
 	# output
@@ -97,7 +104,7 @@ def create_background(quote, author, output_filename):
 	write_image(text, output_filename, select_background_image())
 
 if __name__ == '__main__':
-	NUM_QUOTES = 8
+	NUM_QUOTES = 50
 	OUTPUT_DIR = Path("C:\\Users\\Connor Parish\\Pictures\\Backgrounds")
 	used_quotes = []
 	
